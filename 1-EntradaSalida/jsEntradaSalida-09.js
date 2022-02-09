@@ -6,5 +6,22 @@ en el cuadro de texto "RESULTADO".*/
 function mostrarAumento()
 {
 
-	alert("ok");
+	//Declaracion de variables
+	var sueldo;
+	var sueldoParseado;
+	var resultado;
+	var texto;
+
+	//Asignacion
+	sueldo = txtIdSueldo.value;
+	texto = "Su SUELDO con un 10 % de aumento es: $"
+
+	//Parseo
+	sueldoParseado = parseFloat(sueldo);
+	
+	//Operacion
+	resultado = sueldoParseado * 1.10;
+
+	txtIdResultado.value = texto + resultado
+
 }
