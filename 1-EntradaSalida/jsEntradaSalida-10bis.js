@@ -26,12 +26,12 @@ function mostrarDescuento()
 	
 	
 	//Parseo
-	importeParseado = parseFloat(importe);
+	importeParseado = parseInt(importe);
 
-	porcentajeParseado = parseFloat(100 - porcentaje);
+	porcentajeParseado = parseInt(100 - porcentaje);
 	
 	//Operacion
-	descuento = "0." + porcentajeParseado
+	descuento = "0." + porcentajeParseado;
 
 	resultado = importeParseado * descuento;
 	
