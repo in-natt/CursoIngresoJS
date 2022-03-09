@@ -17,160 +17,132 @@ d. Mostrar el total de dinero que deberá pagar la PYME en concepto de asignacio
 
 function mostrar() {
    //VARIABLES
-   let cantidadTotalDeEmpleados;
-   let cantidadDeEmpleados;
-
-   let nombreEmpleado;
-   let apellidoEmpleado;
-   let generoEmpleado;
-   let cantidadDeHijosEmpleado;
-
-   let contadorGenM;
-   let contadorGenF;
-   let contadorGenNB;
-
-   let porcentajeM;
-   let porcentajeF;
-   let porcentajeNB;
-
-   let entradaDelPrimerNB;
-   let maximaCantidadDeHijosNB;
-   let nombreCantidadDeHijosNB;
-
-   let primerEmpleadoSinHijos;
-   let nombreApellidoPrimerEmpleadoSinHijos;
-
-   let acumuladorTotalDeAsignacion;
+   let cantidadEmpleados, nombre, apellido, genero, cantidadHijos;
+   let contadorFem, contadorMas, contadorNoB;
+   let porcentajeFem, porcentajeMas, porcentajeNoB;
+   let flagB, empleadoNoBinMasHijos, nomEmpleadoNoBinMasHijos;
+   let flagC, nomApellidoEmpleadoSinHijos;
+   let sinHijoNiAsignacion, unHijo, dosHijos, muchosHijos;
+   let acumTotalAsignacion, mensaje;
 
    //INICIALIZO
-   cantidadTotalDeEmpleados = 5;
-   cantidadDeEmpleados = 0;
-   contadorGenM = 0;
-   contadorGenF = 0;
-   contadorGenNB = 0;
-   acumuladorTotalDeAsignacion = 0;
+   cantidadEmpleados = 0;
+   contadorFem = 0;
+   contadorMas = 0;
+   contadorNoB = 0;
+   acumTotalAsignacion = 0;
+   flagB = true;
+   flagC = true;
+   sinHijoNiAsignacion = 0;
+   unHijo = 0;
+   dosHijos = 0;
+   muchosHijos = 0;
 
-   entradaDelPrimerNB = true;
-   primerEmpleadoSinHijos = true;
+   while (cantidadEmpleados < 4) {
 
-
-   //LOGICA 
-   while (cantidadDeEmpleados < cantidadTotalDeEmpleados) {
-      //Nombre
-      nombreEmpleado = prompt("INGRESE SU NOMBRE");
-      nombreEmpleado = nombreEmpleado.toUpperCase();
-      while (nombreEmpleado == "") {
-         nombreEmpleado = prompt("EROOR. INGRESE SU NOMBRE NUEVAMENTE");
-         nombreEmpleado = nombreEmpleado.toUpperCase();
+      nombre = prompt("INGRESE SU NOMBRE: ");
+      nombre = nombre.toLowerCase();
+      while (nombre == "") {
+         nombre = prompt("#ERROR#\nINGRESE SU NOMBRE NUEVAMENTE: ");
+         nombre = nombre.toLowerCase();
       }
 
-      //Apellido
-      apellidoEmpleado = prompt("INGRESE SU APELLIDO");
-      apellidoEmpleado = apellidoEmpleado.toUpperCase();
-      while (apellidoEmpleado == "") {
-         apellidoEmpleado = prompt("EROOR. INGRESE SU APELLIDO NUEVAMENTE");
-         apellidoEmpleado = apellidoEmpleado.toUpperCase();
+      apellido = prompt("INGRESE SU APELLIDO: ");
+      apellido = apellido.toLowerCase();
+      while (apellido == "") {
+         apellido = prompt("#ERROR#\nINGRESE SU APELLIDO NUEVAMENTE: ");
+         apellido = apellido.toLowerCase();
       }
 
-      //Genero
-      generoEmpleado = prompt("INGRESE EL GENERO");
-      generoEmpleado = generoEmpleado.toUpperCase();
-      while (generoEmpleado != "F" && generoEmpleado != "M" && generoEmpleado != "NB") {
-         generoEmpleado = prompt("EROOR. INGRESE EL GENERO NUEVAMENTE");
-         generoEmpleado = generoEmpleado.toUpperCase();
+      genero = prompt("INGRESE EL GENERO (F | M | NB): ");
+      genero = genero.toUpperCase();
+      while (genero != "F" && genero != "M" && genero != "NB") {
+         genero = prompt("#ERROR#\nINGRESE EL GENERO NUEVAMENTE: ");
+         genero = genero.toUpperCase();
       }
 
-      //Cantidad de Hijos 
-      cantidadDeHijosEmpleado = prompt("INGRESE CANTIDAD DE HIJOS");
-      cantidadDeHijosEmpleado = parseInt(cantidadDeHijosEmpleado);
-      while (isNaN(cantidadDeHijosEmpleado) || cantidadDeHijosEmpleado < 0) {
-         cantidadDeHijosEmpleado = prompt("ERROR. INGRESE CANTIDAD DE HIJOS NUEVAMENTE");
-         cantidadDeHijosEmpleado = parseInt(cantidadDeHijosEmpleado);
+      cantidadHijos = prompt("INGRESE CANTIDAD DE HIJOS: ");
+      cantidadHijos = parseInt(cantidadHijos);
+      while (isNaN(cantidadHijos) || cantidadHijos < 0) {
+         cantidadHijos = prompt("#ERROR#\nINGRESE CANTIDAD DE HIJOS NUEVAMENTE: ");
+         cantidadHijos = parseInt(cantidadHijos);
       }
 
-      //TODOS MIS DATOS VALIDADOS
-      switch (generoEmpleado) {
-         case "M":
-            contadorGenM++;
-            break;
-
+      switch (genero) {
          case "F":
-            contadorGenF++;
+            contadorFem++;
             break;
-
+         case "M":
+            contadorMas++;
+            break;
          case "NB":
-            contadorGenNB++;
-            if (entradaDelPrimerNB == true || cantidadDeHijosEmpleado > maximaCantidadDeHijosNB) {
-               maximaCantidadDeHijosNB = cantidadDeHijosEmpleado;
-               nombreCantidadDeHijosNB = nombreEmpleado;
-               entradaDelPrimerNB = false;
+            contadorNoB++;
+            //B
+            if (flagB == true || cantidadHijos > empleadoNoBinMasHijos) {
+               empleadoNoBinMasHijos = cantidadHijos;
+               nomEmpleadoNoBinMasHijos = nombreEmpleado;
+               flagB = false;
             }
             break;
       }
 
-      /*
-      if (primerEmpleadoSinHijos == true && cantidadDeHijosEmpleado == 0) {
-         nombreApellidoPrimerEmpleadoSinHijos = apellidoEmpleado + ", " + nombreEmpleado;
-         primerEmpleadoSinHijos = false;
-      }
-      */
-
-      switch (cantidadDeHijosEmpleado) {
+      switch (cantidadHijos) {
          case 0:
-            if (primerEmpleadoSinHijos == true) {
-               nombreApellidoPrimerEmpleadoSinHijos = apellidoEmpleado + ", " + nombreEmpleado;
-               primerEmpleadoSinHijos = false;
+            //C
+            if (flagC == true) {
+               nomApellidoEmpleadoSinHijos = nombre.toUpperCase() + " " + apellido.toUpperCase();
+               flagC = false;
+               sinHijoNiAsignacion++;
             }
-            console.log(0);
             break;
          case 1:
-            acumuladorTotalDeAsignacion = acumuladorTotalDeAsignacion + 5000;
-            console.log(5000);
+            unHijo++;
+            acumTotalAsignacion += 5000;
             break;
          case 2:
-            acumuladorTotalDeAsignacion += 8000;
-            console.log(8000);
+            dosHijos++;
+            acumTotalAsignacion += 8000;
             break;
          default:
-            acumuladorTotalDeAsignacion += 10000;
-            console.log(10000);
+            muchosHijos++;
+            acumTotalAsignacion += 10000;
             break;
       }
 
-      cantidadDeEmpleados++;
+      cantidadEmpleados++;
    }
 
    //CALCULOS DE PROMEDIO / PORCENTAJE / ETC
-   porcentajeM = (contadorGenM * 100) / cantidadTotalDeEmpleados;
-   porcentajeF = (contadorGenF * 100) / cantidadTotalDeEmpleados;
-   porcentajeNB = (contadorGenNB * 100) / cantidadTotalDeEmpleados;
-
-   //INFORMAR
-   let mensaje = "";
+   porcentajeFem = (contadorFem * 100) / cantidadEmpleados;
+   porcentajeMas = (contadorMas * 100) / cantidadEmpleados;
+   porcentajeNoB = (contadorNoB * 100) / cantidadEmpleados;
+   mensaje = "";
    
-   porcentajeM = porcentajeM.toFixed(2) + "%";
-   porcentajeF = porcentajeF.toFixed(2) + "%";
-   porcentajeNB = porcentajeNB.toFixed(2) + "%";
+   porcentajeFem = porcentajeFem.toFixed(2) + "%";
+   porcentajeMas = porcentajeMas.toFixed(2) + "%";
+   porcentajeNoB = porcentajeNoB.toFixed(2) + "%";
 
-   mensaje = "A)\n";
-   mensaje += "M: " + porcentajeM + " F: " + porcentajeF + " NB: " + porcentajeNB + "\n";
-   mensaje += "B)\n";
+   mensaje = "A) ";
+   mensaje += " Femenino: " + porcentajeFem + "Masculino: " + porcentajeMas + " No Binario: " + porcentajeNoB + "\n";
+   mensaje += "B) ";
    
-   if(entradaDelPrimerNB == true){
+   if(flagB == true){
       mensaje += "No hubo empleados de genero NB\n";
    }else{
-      mensaje += "El NB con mas hijos es: " + nombreCantidadDeHijosNB + " - Cant Hijos: " + maximaCantidadDeHijosNB + "\n";
+      mensaje += "El Empleado NB Con + Hijos es: " + nomEmpleadoNoBinMasHijos + " - Cantidad de Hijos: " + empleadoNoBinMasHijos + "\n";
    }
 
-   mensaje += "C)\n";
-   if(primerEmpleadoSinHijos == true){
+   mensaje += "C) ";
+   if(flagC == true){
       mensaje += "No hubo empleados sin hijos\n";
    }else{
-      mensaje += "El primer empleado sin hijoos es: " + nombreApellidoPrimerEmpleadoSinHijos + "\n";
+      mensaje += "El 1er Empleado Sin Hijos es: " + nomApellidoEmpleadoSinHijos + "\n";
    }
 
    mensaje += "D)\n";
-   mensaje += "Total de dinero que debera pagar la PYME: $ " + acumuladorTotalDeAsignacion;
+   mensaje += "Total de dinero que debera pagar la PYME: $" + acumTotalAsignacion;
+
+   mensaje += "Cantidad sin hijos: " + sinHijoNiAsignacion + " - " + "1 Hijo: " + unHijo;
 
    alert(mensaje);
 }
