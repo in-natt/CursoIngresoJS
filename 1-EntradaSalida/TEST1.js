@@ -1,110 +1,106 @@
 /*
-1. Se ingresan 5 importes, marca del producto y país de origen (China, Uruguay o Paraguay).
-Calcular y mostrar:
-a. Mínimo importe con su país
-b. Máximo importe con su marca
-c. Promedio importe
-d. Cantidad de productos de China
-e. Sobre el máximo encontrado aplicar un descuento del 10% a dicho importe.*/
+1- Una casa de computación que se especializa en venta de insumos importados
+desea calcular ciertas métricas en base a las ventas de sus productos.
+Se ingresa de cada venta: (Ingresa mínimo 5 ventas)
+-Nombre del producto.
+-Género: (Memorias – Discos – Motherboards)
+-Tipo de Venta: (Online – Local)
+-Importe: (No pueden ser números negativos ni mayor a los 30000)
+
+Se pide:
+A- El más barato de “Discos” con su importe .
+B- De la venta más cara, el nombre del producto y tipo de venta.
+C- La cantidad de ventas que sean de “Memorias” y cuesten menos de $850.
+*/
 
 function mostrar() {
+
+	var venta;
 	var producto;
-	var marca;
+	var genero;
 	var importe;
-	var parseoImporte;
-	var paisOrigen;
-	var cantidad;
-	var importeMin;
-	var minPais;
-	var importeMax;
-	var maxMarca;
+	var tipoVenta;
+	var discoMasBarato;
+	var ventaMasCara;
+	var importeMin
+	var importeMax
+	var cantidadMemorias;
+	var cantidadDiscos;
+	var cantidadMothers;
+	// var acumuladorMemorias;
+	// var acumuladorDiscos;
+	// var acumuladorMothers;
 	var flag;
-	var promedioImporte;
-	var importeTotal;
-	var cantidadChina;
-	var porcentaje;
-	var porcentaParseado;
-	var descuento;
-	var resultado;
 
-
-	cantidad = 0;
-	cantidadChina = 0;
-	importeTotal = 0;
-	porcentaje = 10;
+	venta = 0;
+	cantidadMemorias = 0;
+	cantidadDiscos = 0;
+	cantidadMothers = 0;
+	// acumuladorMemorias = 0;
+	// acumuladorDiscos = 0;
+	// acumuladorMothers = 0;
 	flag = "In";
 
+	while (venta < 5) {
+		producto = prompt("Ingrese el nombre del producto: ");
+		producto = producto.toLowerCase();
 
-	while (cantidad < 5) {
-		producto = prompt("Ingrese un producto: ");
-
-		importe = prompt("Ingrese el importe del producto: $");
-		parseoImporte = parseInt(importe);
-
-		while (isNaN(parseoImporte)) {
-			importe = prompt("# ERROR #\n" + "Ingrese el importe del producto nuevamente: $");
-			parseoImporte = parseInt(importe);
-		}
-		importeTotal = importeTotal + parseoImporte;
-
-		marca = prompt("Ingrese la marca del producto: ");
-		while (marca == "") {
-			marca = prompt("Por favor, Ingrese la marca del producto: ");
+		while (producto == "") {
+			producto = prompt("Ingrese el nombre del producto nuevamente: ");
+			producto = producto.toLowerCase();
 		}
 
-		//país de origen (china, uruguay o paraguay)
-		paisOrigen = prompt("Ingrese país de origen: ");
-		paisOrigen = paisOrigen.toLowerCase();
+		genero = prompt("Ingrese el genero del producto: ");
+		genero = genero.toLowerCase();
 
-		while (paisOrigen != "china" && paisOrigen != "uruguay" && paisOrigen != "paraguay") {
-			paisOrigen = prompt("Ingrese un país de origen valido: \n (china, uruguay o paraguay)");
-			paisOrigen = paisOrigen.toLowerCase();
-		}
-		if (paisOrigen == "china") {
-			cantidadChina++;
+		while (genero != "memorias" && genero != "discos" && genero != "mothers") {
+			genero = prompt("El genero especificado no es valido\nIngrese el genero del producto nuevamente: ");
+			genero = genero.toLowerCase();
 		}
 
-		//a. Mínimo importe con su país
-		//b. Máximo importe con su marca
-		if (flag == "In") {
-			importeMin = parseoImporte;
-			importeMax = parseoImporte;
-			flag = "Out";
+		tipoVenta = prompt("Ingrese el tipo de venta: ");
+		tipoVenta = tipoVenta.toLowerCase();
+
+		while (tipoVenta != "online" && tipoVenta != "local") {
+			tipoVenta = prompt("El tipo de venta especificado no es valido\nIngrese el tipo de venta nuevamente: ");
+			tipoVenta = tipoVenta.toLowerCase();
 		}
-		else {
-			if (parseoImporte < importeMin) {
-				importeMin = parseoImporte;
-				minPais = paisOrigen;
-			}
-			else {
-				if (parseoImporte > importeMax) {
-					importeMax = parseoImporte;
-					maxMarca = marca;
-				}
+
+		importe = prompt("Ingrese el importe: $");
+		importe = parseInt(importe);
+
+		while (isNaN(importe) || importe < 0 || importe > 30000) {
+			importe = prompt("Ingrese el importe nuevamente: $");
+			importe = parseInt(importe);
+		}
+
+		if (flag=="in") {
+			importeMin = importe;
+			importeMax = importe;
+			flag = "out";
+		}
+		else{
+			if (importe<importeMin) {
+				importeMin = importe;
+				discoMasBarato = ;	
 			}
 		}
 
-		cantidad++;
+		switch (genero) {
+			case "memorias":
+				cantidadMemorias++;
+				break;
+			case "discos":
+				cantidadDiscos++;
+				break;
+			case "mothers":
+				cantidadMothers++;
+				break;
+		}
+
+		venta++;
 	}
-
-	promedioImporte = (importeTotal / cantidad);
-
-	porcentaParseado = parseInt(100 - porcentaje);
-	descuento = "0." + porcentaParseado;
-	resultado = importeMax * descuento;
-
-	document.writeln("<br>a. El Mínimo importe es: $" + importeMin + " y su país de origen es: " + minPais.toUpperCase());
-	document.writeln("<br>b. El Máximo importe es: $" + importeMax + " y su marca es: " + maxMarca.toUpperCase());
-	document.writeln("<br>c. Promedio importe: " + promedioImporte);
-	document.writeln("<br>d. Cantidad de productos de China: " + cantidadChina);
-	document.writeln("<br>e. 10% Descuento para el máximo importe: " + resultado);
-	document.writeln("<br>   ---FIN---   </br>");
 }
-
-// x. Producto		Importe		Marca			Pais
-
-// 1. pan			150			bimbo			uruguay
-// 2. velas			75			lucerito		paraguay
-// 3. fideos		205			yang			china
-// 4. reloj			400			zera			china
-// 5. helado		40			montevideana	uruguay
+// A- El más barato de “Discos” con su importe .
+// B- De la venta más cara, el nombre del producto y tipo de venta.
+// C- La cantidad de ventas que sean de “Memorias” y cuesten menos de $850.
